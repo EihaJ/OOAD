@@ -88,7 +88,7 @@ class TrangChu extends StatelessWidget {
               imageButton: 'assets/NhanVien.png',
             ),
             ButtonTrangChu(
-              onPressed: () => Navigator.pushNamed(context, '/NhanVien'),
+              onPressed: () => Navigator.pushNamed(context, '/Luong'),
               textButton: 'Quản lí Lương',
               imageButton: 'assets/Luong.png',
             ),
