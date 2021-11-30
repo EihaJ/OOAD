@@ -118,7 +118,7 @@ class _NhanVienState extends State<NhanVien> {
                                 width: 243,
                                 alignment: Alignment.center,
                                 child: Text(
-                                  'Tên Đơn vị',
+                                  'Tên Nhân viên',
                                   style: TextStyle(
                                     fontFamily: 'HelveticalNeue',
                                     fontSize: 22.5,
