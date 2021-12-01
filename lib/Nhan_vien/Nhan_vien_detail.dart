@@ -1015,7 +1015,7 @@ class _NhanVienDetailState extends State<NhanVienDetail> {
                                           SizedBox(height: 12),
                                           _customTile(
                                             containerWidth: 219,
-                                            title: 'Tên Đoàn Thể:',
+                                            title: 'Cấp Độ:',
                                             hintText: 'Chủ Tịch Nước',
                                             controller: _capDoController,
                                           ),
