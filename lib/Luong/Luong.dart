@@ -59,7 +59,7 @@ class _LuongState extends State<Luong> {
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: Navigation(
-          tittleText: 'Quản lí Lương',
+          tittleText: 'Quản lý Lương',
           backgroundOpacity: 0,
           elevationHeight: 0,
         ),
@@ -105,7 +105,7 @@ class _LuongState extends State<Luong> {
                                 width: 243,
                                 alignment: Alignment.center,
                                 child: Text(
-                                  'Tên Đơn vị',
+                                  'Tên Đơn Vị',
                                   style: TextStyle(
                                     fontFamily: 'HelveticalNeue',
                                     fontSize: 22.5,

@@ -94,7 +94,8 @@ class _LoginState extends State<Login> {
                               .catchError(
                             (e) {
                               setState(() => loading = false);
-                              Fluttertoast.showToast(msg: e!.message);
+                              Fluttertoast.showToast(
+                                  msg: 'Đăng Nhập Không Thành Công');
                             },
                           );
                         }),

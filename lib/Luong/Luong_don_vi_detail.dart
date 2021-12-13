@@ -85,7 +85,7 @@ class _LuongDonViState extends State<LuongDonVi> {
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: Navigation(
-          tittleText: 'Quản lí Lương',
+          tittleText: 'Quản lý Lương',
           backgroundOpacity: 0,
           elevationHeight: 0,
         ),

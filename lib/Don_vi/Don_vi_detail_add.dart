@@ -38,7 +38,7 @@ class _DonViDetailAddState extends State<DonViDetailAdd> {
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: Navigation(
-          tittleText: 'Quản lí Đơn Vị',
+          tittleText: 'Quản lý Đơn Vị',
           backgroundOpacity: 0,
           elevationHeight: 0,
         ),
@@ -147,7 +147,14 @@ class _DonViDetailAddState extends State<DonViDetailAdd> {
                       ),
                       decoration: BoxDecoration(
                         color: Color(0xffF5F5F5),
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(7),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.25),
+                            blurRadius: 4,
+                            offset: Offset(0, 4),
+                          ),
+                        ],
                       ),
                       height: 170,
                       width: 353,
@@ -356,12 +363,19 @@ class _DonViDetailAddState extends State<DonViDetailAdd> {
   }) {
     return Container(
       padding: EdgeInsets.only(
+        top: 3,
         left: 7,
-        top: 5,
       ),
       decoration: BoxDecoration(
         color: Color(0xffF5F5F5),
         borderRadius: BorderRadius.circular(7),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.25),
+            blurRadius: 4,
+            offset: Offset(0, 4),
+          ),
+        ],
       ),
       height: height ?? 54,
       width: containerWidth,
@@ -386,7 +400,7 @@ class _DonViDetailAddState extends State<DonViDetailAdd> {
       title,
       style: TextStyle(
         fontFamily: 'HelveticaNeue',
-        fontStyle: FontStyle.italic,
+        fontWeight: FontWeight.w400,
         fontSize: 12.8,
       ),
     );

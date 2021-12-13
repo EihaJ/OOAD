@@ -38,7 +38,7 @@ class _TrinhDoChangeState extends State<TrinhDoChange> {
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: Navigation(
-          tittleText: 'Quản lí Trình Độ',
+          tittleText: 'Quản lý Trình Độ',
           backgroundOpacity: 0,
           elevationHeight: 0,
         ),
@@ -67,11 +67,24 @@ class _TrinhDoChangeState extends State<TrinhDoChange> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
 //Mã đơn vị
-                        customTile(
-                          controller: _maTDController,
-                          containerWidth: 123,
-                          title: 'Mã Trình Độ',
-                          hintText: 'Eg:. 001',
+                        Column(
+                          children: [
+                            customTile(
+                              controller: _maTDController,
+                              containerWidth: 123,
+                              title: 'Mã Trình Độ',
+                              hintText: 'Eg:. 001',
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            customTile(
+                              controller: _phuCapController,
+                              containerWidth: 123,
+                              title: 'Phụ Cấp',
+                              hintText: 'Eg:. 500000',
+                            ),
+                          ],
                         ),
 //Mã đơn vị
                         SizedBox(
@@ -82,8 +95,8 @@ class _TrinhDoChangeState extends State<TrinhDoChange> {
                         customTile(
                           controller: _tenTDController,
                           containerWidth: 219,
-                          maxLines: 3,
-                          height: 90,
+                          maxLines: 4,
+                          height: 118,
                           title: 'Tên Trình Độ',
                           hintText: 'Eg:. IELTS',
                         ),
@@ -93,32 +106,16 @@ class _TrinhDoChangeState extends State<TrinhDoChange> {
                     SizedBox(
                       height: 10,
                     ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+
 //SĐT
-                        customTile(
-                          controller: _noiCapBangController,
-                          maxLines: 3,
-                          height: 90,
-                          containerWidth: 219,
-                          title: 'Nơi Cấp',
-                          hintText: 'Eg:. Hội Đồng Anh',
-                        ),
-//SĐT
-                        SizedBox(
-                          width: 10,
-                        ),
-// Năm TL
-                        customTile(
-                          controller: _phuCapController,
-                          containerWidth: 123,
-                          title: 'Phụ Cấp',
-                          hintText: 'Eg:. 500000',
-                        ),
-// Năm TL
-                      ],
+                    customTile(
+                      controller: _noiCapBangController,
+                      containerWidth: double.infinity,
+                      title: 'Nơi Cấp',
+                      hintText: 'Eg:. Hội Đồng Anh',
                     ),
+//SĐT
+
                     SizedBox(
                       height: 10,
                     ),
@@ -141,8 +138,6 @@ class _TrinhDoChangeState extends State<TrinhDoChange> {
                         customTile(
                           controller: tenCMController,
                           containerWidth: 219,
-                          maxLines: 3,
-                          height: 90,
                           title: 'Tên Chuyên Môn',
                           hintText: 'Eg:. Tiếng Anh',
                         ),
@@ -214,12 +209,19 @@ class _TrinhDoChangeState extends State<TrinhDoChange> {
   }) {
     return Container(
       padding: EdgeInsets.only(
+        top: 3,
         left: 7,
-        top: 5,
       ),
       decoration: BoxDecoration(
         color: Color(0xffF5F5F5),
         borderRadius: BorderRadius.circular(7),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.25),
+            blurRadius: 4,
+            offset: Offset(0, 4),
+          ),
+        ],
       ),
       height: height ?? 54,
       width: containerWidth,
@@ -244,7 +246,7 @@ class _TrinhDoChangeState extends State<TrinhDoChange> {
       title,
       style: TextStyle(
         fontFamily: 'HelveticaNeue',
-        fontStyle: FontStyle.italic,
+        fontWeight: FontWeight.w400,
         fontSize: 12.8,
       ),
     );

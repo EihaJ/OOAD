@@ -25,7 +25,7 @@ class _ThanNhanDetailState extends State<ThanNhanDetail> {
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: Navigation(
-          tittleText: 'Quản lí Thân Nhân',
+          tittleText: 'Quản lý Thân Nhân',
           backgroundOpacity: 0,
           elevationHeight: 0,
         ),
@@ -190,6 +190,13 @@ class _CustomTextField extends StatelessWidget {
       decoration: BoxDecoration(
         color: Color(0xffF5F5F5),
         borderRadius: BorderRadius.circular(7),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.25),
+            blurRadius: 4,
+            offset: Offset(0, 4),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -207,7 +214,7 @@ Widget customTitle(String title) {
     title,
     style: TextStyle(
       fontFamily: 'HelveticaNeue',
-      fontStyle: FontStyle.italic,
+      fontWeight: FontWeight.w400,
       fontSize: 12.8,
     ),
   );

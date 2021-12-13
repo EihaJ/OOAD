@@ -77,7 +77,7 @@ class _NhanVienDetailChangeState extends State<NhanVienDetailChange> {
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: Navigation(
-          tittleText: 'Quản lí Nhân Viên',
+          tittleText: 'Quản lý Nhân Viên',
           backgroundOpacity: 0,
           elevationHeight: 0,
         ),
@@ -161,7 +161,14 @@ class _NhanVienDetailChangeState extends State<NhanVienDetailChange> {
                             ),
                             decoration: BoxDecoration(
                               color: Color(0xffF5F5F5),
-                              borderRadius: BorderRadius.circular(7),
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.25),
+                                  blurRadius: 4,
+                                  offset: Offset(0, 4),
+                                ),
+                              ],
                             ),
                             height: 54,
                             width: 169,
@@ -172,7 +179,7 @@ class _NhanVienDetailChangeState extends State<NhanVienDetailChange> {
                                   'Ngày Sinh',
                                   style: TextStyle(
                                     fontFamily: 'HelveticaNeue',
-                                    fontStyle: FontStyle.italic,
+                                    fontWeight: FontWeight.w400,
                                     fontSize: 12.8,
                                   ),
                                 ),
@@ -240,6 +247,13 @@ class _NhanVienDetailChangeState extends State<NhanVienDetailChange> {
                       decoration: BoxDecoration(
                         color: Color(0xffF5F5F5),
                         borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.25),
+                            blurRadius: 4,
+                            offset: Offset(0, 4),
+                          ),
+                        ],
                       ),
                       height: 170,
                       width: 353,
@@ -405,7 +419,14 @@ class _NhanVienDetailChangeState extends State<NhanVienDetailChange> {
                             ),
                             decoration: BoxDecoration(
                               color: Color(0xffF5F5F5),
-                              borderRadius: BorderRadius.circular(7),
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.25),
+                                  blurRadius: 4,
+                                  offset: Offset(0, 4),
+                                ),
+                              ],
                             ),
                             height: 54,
                             width: 167.5,
@@ -416,7 +437,7 @@ class _NhanVienDetailChangeState extends State<NhanVienDetailChange> {
                                   'Ngày Vào',
                                   style: TextStyle(
                                     fontFamily: 'HelveticaNeue',
-                                    fontStyle: FontStyle.italic,
+                                    fontWeight: FontWeight.w400,
                                     fontSize: 12.8,
                                   ),
                                 ),
@@ -459,7 +480,14 @@ class _NhanVienDetailChangeState extends State<NhanVienDetailChange> {
                             ),
                             decoration: BoxDecoration(
                               color: Color(0xffF5F5F5),
-                              borderRadius: BorderRadius.circular(7),
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.25),
+                                  blurRadius: 4,
+                                  offset: Offset(0, 4),
+                                ),
+                              ],
                             ),
                             height: 54,
                             width: 167.5,
@@ -470,7 +498,7 @@ class _NhanVienDetailChangeState extends State<NhanVienDetailChange> {
                                   'Ngày Ra',
                                   style: TextStyle(
                                     fontFamily: 'HelveticaNeue',
-                                    fontStyle: FontStyle.italic,
+                                    fontWeight: FontWeight.w400,
                                     fontSize: 12.8,
                                   ),
                                 ),
@@ -612,12 +640,19 @@ class _NhanVienDetailChangeState extends State<NhanVienDetailChange> {
   }) {
     return Container(
       padding: EdgeInsets.only(
+        top: 3,
         left: 7,
-        top: 5,
       ),
       decoration: BoxDecoration(
         color: Color(0xffF5F5F5),
         borderRadius: BorderRadius.circular(7),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.25),
+            blurRadius: 4,
+            offset: Offset(0, 4),
+          ),
+        ],
       ),
       height: height ?? 54,
       width: containerWidth,
@@ -642,7 +677,7 @@ class _NhanVienDetailChangeState extends State<NhanVienDetailChange> {
       title,
       style: TextStyle(
         fontFamily: 'HelveticaNeue',
-        fontStyle: FontStyle.italic,
+        fontWeight: FontWeight.w400,
         fontSize: 12.8,
       ),
     );

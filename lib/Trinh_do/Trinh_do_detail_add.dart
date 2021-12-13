@@ -49,7 +49,14 @@ class _TrinhDoDetaillAddState extends State<TrinhDoDetaillAdd> {
               ),
               decoration: BoxDecoration(
                 color: Color(0xffF5F5F5),
-                borderRadius: BorderRadius.circular(7),
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.25),
+                    blurRadius: 4,
+                    offset: Offset(0, 4),
+                  ),
+                ],
               ),
               height: 54,
               width: 219,
@@ -60,7 +67,7 @@ class _TrinhDoDetaillAddState extends State<TrinhDoDetaillAdd> {
                     'Ngày Hiệu Lực',
                     style: TextStyle(
                       fontFamily: 'HelveticaNeue',
-                      fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.w400,
                       fontSize: 12.8,
                     ),
                   ),
@@ -96,7 +103,14 @@ class _TrinhDoDetaillAddState extends State<TrinhDoDetaillAdd> {
               ),
               decoration: BoxDecoration(
                 color: Color(0xffF5F5F5),
-                borderRadius: BorderRadius.circular(7),
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.25),
+                    blurRadius: 4,
+                    offset: Offset(0, 4),
+                  ),
+                ],
               ),
               height: 54,
               width: 219,
@@ -107,7 +121,7 @@ class _TrinhDoDetaillAddState extends State<TrinhDoDetaillAdd> {
                     'Ngày Hết Hạn',
                     style: TextStyle(
                       fontFamily: 'HelveticaNeue',
-                      fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.w400,
                       fontSize: 12.8,
                     ),
                   ),
@@ -201,7 +215,14 @@ Widget _customTile({
     ),
     decoration: BoxDecoration(
       color: Color(0xffF5F5F5),
-      borderRadius: BorderRadius.circular(7),
+      borderRadius: BorderRadius.circular(10),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withOpacity(0.25),
+          blurRadius: 4,
+          offset: Offset(0, 4),
+        ),
+      ],
     ),
     height: height ?? 54,
     width: containerWidth,
@@ -226,7 +247,7 @@ Widget _customTitle(String title) {
     title,
     style: TextStyle(
       fontFamily: 'HelveticaNeue',
-      fontStyle: FontStyle.italic,
+      fontWeight: FontWeight.w400,
       fontSize: 12.8,
     ),
   );

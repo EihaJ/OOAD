@@ -28,7 +28,7 @@ class _SearchWidgetState extends State<SearchWidget> {
     final styleHint = TextStyle(
       color: Color(0xff727272),
       fontFamily: 'HelveticaNeue',
-      fontStyle: FontStyle.italic,
+      fontWeight: FontWeight.w400,
       fontSize: 12.8,
     );
     final style = widget.text.isEmpty ? styleHint : styleActive;

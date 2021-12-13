@@ -63,7 +63,7 @@ class _NhanVienThanNhanState extends State<NhanVienThanNhan> {
         bottomNavigationBar: BottomNavigation(),
         extendBodyBehindAppBar: true,
         appBar: Navigation(
-          tittleText: 'Quản lí Thân Nhân',
+          tittleText: 'Quản lý Thân Nhân',
           backgroundOpacity: 0,
           elevationHeight: 0,
         ),

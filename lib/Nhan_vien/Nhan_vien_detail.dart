@@ -20,6 +20,7 @@ import '../1.model/Khen_Thuong_Model.dart';
 import '../Chung/navigation.dart';
 import '../Chung/drawer.dart';
 import '../Chung/bottom_navigation.dart';
+import '../Loading.dart';
 
 import 'Nhan_vien_detail_change.dart';
 
@@ -39,7 +40,7 @@ class NhanVienDetail extends StatefulWidget {
 
 class _NhanVienDetailState extends State<NhanVienDetail> {
   String query = '';
-
+  bool loading = true;
   List<DonViItem> donViItems = [];
   List<DoanTheItem> doanTheItems = [];
   List<List<DoanTheDetailItem>> doanTheDetailItems = [];
@@ -105,1103 +106,947 @@ class _NhanVienDetailState extends State<NhanVienDetail> {
       this.khenThuongItems = khenThuongItems;
 
       this.donViItems = donViItems;
+      loading = false;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        extendBodyBehindAppBar: true,
-        appBar: Navigation(
-          tittleText: 'Quản lí Nhân Viên',
-          backgroundOpacity: 0,
-          elevationHeight: 0,
-        ),
-        drawer: CustomDrawer(),
-        bottomNavigationBar: BottomNavigation(),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Image(
-                image: AssetImage('assets/NhanVien.png'),
-                width: double.infinity,
-                fit: BoxFit.fill,
+    return loading
+        ? Loading()
+        : SafeArea(
+            child: Scaffold(
+              extendBodyBehindAppBar: true,
+              appBar: Navigation(
+                tittleText: 'Quản lý Nhân Viên',
+                backgroundOpacity: 0,
+                elevationHeight: 0,
               ),
-              Container(
-                margin: EdgeInsets.only(
-                  left: 29,
-                  right: 29,
-                ),
+              drawer: CustomDrawer(),
+              bottomNavigationBar: BottomNavigation(),
+              body: SingleChildScrollView(
                 child: Column(
                   children: [
-                    SizedBox(
-                      height: 33,
+                    Image(
+                      image: AssetImage('assets/NhanVien.png'),
+                      width: double.infinity,
+                      fit: BoxFit.fill,
                     ),
-                    widget.nhanVien.imageUrl != ('') ||
-                            widget.nhanVien.imageUrl != null
-                        ? Container(
-                            height: 176,
-                            width: 176,
-                            color: Color(0xffF5F5F5),
-                            child: Image(
-                              image: NetworkImage(widget.nhanVien.imageUrl!),
-                            ),
-                          )
-                        : Container(
-                            height: 176,
-                            width: 176,
-                            color: Color(0xffF5F5F5),
-                            child: Image(
-                              image: AssetImage('assets/NoImage.png'),
-                            ),
+                    Container(
+                      margin: EdgeInsets.only(
+                        left: 29,
+                        right: 29,
+                      ),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 33,
                           ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        //Thong tin ca nhan
-                        Text(
-                          'Thông Tin Cá Nhân: ',
-                          style: TextStyle(
-                            fontFamily: 'Nunito',
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16,
-                            // fontStyle: FontStyle.italic,
+                          widget.nhanVien.imageUrl == null ||
+                                  widget.nhanVien.imageUrl == ''
+                              ? Container(
+                                  height: 176,
+                                  width: 176,
+                                  color: Color(0xffF5F5F5),
+                                  child: Image(
+                                    image: AssetImage('assets/NoImage.png'),
+                                  ),
+                                )
+                              : Container(
+                                  height: 176,
+                                  width: 176,
+                                  color: Color(0xffF5F5F5),
+                                  child: Image(
+                                    image:
+                                        NetworkImage(widget.nhanVien.imageUrl!),
+                                  ),
+                                ),
+                          SizedBox(
+                            height: 30,
                           ),
-                        ),
-                        SizedBox(
-                          height: 1,
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            _CustomTextField(
-                              width: 114,
-                              title: 'Mã Nhân Viên',
-                              text: widget.nhanVien.maNV ?? '',
-                            ),
-                            SizedBox(width: 10),
-                            _CustomTextField(
-                              width: 221,
-                              title: 'Tên Nhân Viên',
-                              text: widget.nhanVien.tenNV ?? '',
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          children: [
-                            _CustomTextField(
-                              width: 185,
-                              title: 'Ngày Sinh',
-                              text: widget.nhanVien.ngaySinh != null
-                                  ? DateFormat('dd/MM/yyyy')
-                                      .format(widget.nhanVien.ngaySinh!)
-                                  : 'XX/XX/XXXX',
-                            ),
-                            SizedBox(width: 10),
-                            _CustomTextField(
-                              width: 70,
-                              title: 'Giới tính',
-                              text: widget.nhanVien.gioiTinh == 1
-                                  ? 'Nam'
-                                  : widget.nhanVien.gioiTinh == 0
-                                      ? 'Nữ'
-                                      : '',
-                            ),
-                            SizedBox(width: 10),
-                            _CustomTextField(
-                              width: 70,
-                              title: 'Dân tộc',
-                              text: widget.nhanVien.danToc ?? '',
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(
-                            top: 3,
-                            left: 7,
-                          ),
-                          alignment: Alignment.topLeft,
-                          width: 345,
-                          decoration: BoxDecoration(
-                            color: Color(0xffF5F5F5),
-                            borderRadius: BorderRadius.circular(7),
-                          ),
-                          child: Column(
+                          Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              customTitle('Địa chỉ'),
+                              //Thong tin ca nhan
+                              Text(
+                                'Thông Tin Cá Nhân: ',
+                                style: TextStyle(
+                                  fontFamily: 'Nunito',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16,
+                                  //  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 1,
+                              ),
                               Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  customTitle('Số:'),
-                                  customText(
-                                      widget.nhanVien.diaChi?.soNha ?? ''),
+                                  _CustomTextField(
+                                    width: 114,
+                                    title: 'Mã Nhân Viên',
+                                    text: widget.nhanVien.maNV ?? '',
+                                  ),
+                                  SizedBox(width: 10),
+                                  _CustomTextField(
+                                    width: 221,
+                                    title: 'Tên Nhân Viên',
+                                    text: widget.nhanVien.tenNV ?? '',
+                                  ),
                                 ],
+                              ),
+                              SizedBox(
+                                height: 10,
                               ),
                               Row(
                                 children: [
-                                  customTitle('Phường:'),
-                                  customText(
-                                      widget.nhanVien.diaChi?.phuong ?? ''),
+                                  _CustomTextField(
+                                    width: 185,
+                                    title: 'Ngày Sinh',
+                                    text: widget.nhanVien.ngaySinh != null
+                                        ? DateFormat('dd/MM/yyyy')
+                                            .format(widget.nhanVien.ngaySinh!)
+                                        : 'XX/XX/XXXX',
+                                  ),
+                                  SizedBox(width: 10),
+                                  _CustomTextField(
+                                    width: 70,
+                                    title: 'Giới tính',
+                                    text: widget.nhanVien.gioiTinh == 1
+                                        ? 'Nam'
+                                        : widget.nhanVien.gioiTinh == 0
+                                            ? 'Nữ'
+                                            : '',
+                                  ),
+                                  SizedBox(width: 10),
+                                  _CustomTextField(
+                                    width: 70,
+                                    title: 'Dân tộc',
+                                    text: widget.nhanVien.danToc ?? '',
+                                  ),
                                 ],
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Container(
+                                padding: EdgeInsets.only(
+                                  top: 3,
+                                  left: 7,
+                                ),
+                                alignment: Alignment.topLeft,
+                                width: 345,
+                                decoration: BoxDecoration(
+                                  color: Color(0xffF5F5F5),
+                                  borderRadius: BorderRadius.circular(7),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.25),
+                                      blurRadius: 4,
+                                      offset: Offset(0, 4),
+                                    ),
+                                  ],
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    customTitle('Địa chỉ'),
+                                    Row(
+                                      children: [
+                                        customTitle('Số: '),
+                                        customText(
+                                            widget.nhanVien.diaChi?.soNha ??
+                                                ''),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        customTitle('Phường: '),
+                                        customText(
+                                            widget.nhanVien.diaChi?.phuong ??
+                                                ''),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        customTitle('Quận: '),
+                                        customText(
+                                            widget.nhanVien.diaChi?.quan ?? ''),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        customTitle('Thành phố/Tỉnh: '),
+                                        customText(
+                                            widget.nhanVien.diaChi?.tp ?? ''),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              _CustomTextField(
+                                width: 345,
+                                title: 'CMND',
+                                text: widget.nhanVien.cMND ?? '',
+                              ),
+                              SizedBox(
+                                height: 10,
                               ),
                               Row(
                                 children: [
-                                  customTitle('Quận:'),
-                                  customText(
-                                      widget.nhanVien.diaChi?.quan ?? ''),
+                                  _CustomTextField(
+                                    width: 168,
+                                    title: 'Ngày Vào',
+                                    text: widget.nhanVien.ngayVaoTruong != null
+                                        ? DateFormat('dd/MM/yyyy').format(
+                                            widget.nhanVien.ngayVaoTruong!)
+                                        : 'XX/XX/XXXX',
+                                  ),
+                                  SizedBox(width: 10),
+                                  _CustomTextField(
+                                    width: 167,
+                                    title: 'Ngày Ra',
+                                    text: widget.nhanVien.ngayRaTruong != null
+                                        ? DateFormat('dd/MM/yyyy').format(
+                                            widget.nhanVien.ngayRaTruong!)
+                                        : 'XX/XX/XXXX',
+                                  ),
                                 ],
                               ),
-                              Row(
-                                children: [
-                                  customTitle('Thành phố/Tỉnh:'),
-                                  customText(widget.nhanVien.diaChi?.tp ?? ''),
-                                ],
+                              SizedBox(
+                                height: 10,
                               ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        _CustomTextField(
-                          width: 345,
-                          title: 'CMND',
-                          text: widget.nhanVien.cMND ?? '',
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          children: [
-                            _CustomTextField(
-                              width: 168,
-                              title: 'Ngày Vào',
-                              text: widget.nhanVien.ngayVaoTruong != null
-                                  ? DateFormat('dd/MM/yyyy')
-                                      .format(widget.nhanVien.ngayVaoTruong!)
-                                  : 'XX/XX/XXXX',
-                            ),
-                            SizedBox(width: 10),
-                            _CustomTextField(
-                              width: 167,
-                              title: 'Ngày Ra',
-                              text: widget.nhanVien.ngayRaTruong != null
-                                  ? DateFormat('dd/MM/yyyy')
-                                      .format(widget.nhanVien.ngayRaTruong!)
-                                  : 'XX/XX/XXXX',
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(
-                            top: 3,
-                            left: 7,
-                          ),
-                          height: 45,
-                          width: 345,
-                          decoration: BoxDecoration(
-                            color: Color(0xffF5F5F5),
-                            borderRadius: BorderRadius.circular(7),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              customTitle('Đơn Vị Quản Lí'),
-                              for (int i = 0; i < donViItems.length; i++)
-                                if (donViItems[i].maDV ==
-                                    widget.nhanVien.maDonViQuanLi)
-                                  customText(donViItems[i].tenDV!),
-                            ],
-                          ),
-                        ),
+                              Container(
+                                padding: EdgeInsets.only(
+                                  top: 3,
+                                  left: 7,
+                                ),
+                                height: 45,
+                                width: 345,
+                                decoration: BoxDecoration(
+                                  color: Color(0xffF5F5F5),
+                                  borderRadius: BorderRadius.circular(7),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.25),
+                                      blurRadius: 4,
+                                      offset: Offset(0, 4),
+                                    ),
+                                  ],
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    customTitle('Đơn Vị Quản Lí'),
+                                    for (int i = 0; i < donViItems.length; i++)
+                                      if (donViItems[i].maDV ==
+                                          widget.nhanVien.maDonViQuanLi)
+                                        customText(donViItems[i].tenDV!),
+                                  ],
+                                ),
+                              ),
 
-                        SizedBox(
-                          height: 12,
-                        ),
-                        Row(
-                          children: [
-                            Container(
-                              width: 171,
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  primary: Colors.blueAccent[200],
-                                  elevation: 0,
-                                  padding: EdgeInsets.fromLTRB(20, 12, 20, 12),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(25),
-                                  ),
-                                ),
-                                child: Text(
-                                  'Sửa dữ liệu',
-                                  style: TextStyle(
-                                    fontFamily: 'HelveticaNeue',
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            NhanVienDetailChange(
-                                                nhanVien: widget.nhanVien)),
-                                  );
-                                },
+                              SizedBox(
+                                height: 12,
                               ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Container(
-                              width: 171,
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  primary: Colors.red[400],
-                                  elevation: 0,
-                                  padding: EdgeInsets.fromLTRB(20, 12, 20, 12),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(25),
+                              Row(
+                                children: [
+                                  Container(
+                                    width: 171,
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        primary: Colors.blueAccent[200],
+                                        elevation: 0,
+                                        padding:
+                                            EdgeInsets.fromLTRB(20, 12, 20, 12),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(25),
+                                        ),
+                                      ),
+                                      child: Text(
+                                        'Sửa dữ liệu',
+                                        style: TextStyle(
+                                          fontFamily: 'HelveticaNeue',
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  NhanVienDetailChange(
+                                                      nhanVien:
+                                                          widget.nhanVien)),
+                                        );
+                                      },
+                                    ),
                                   ),
-                                ),
-                                child: Text(
-                                  'Xoá dữ liệu',
-                                  style: TextStyle(
-                                    fontFamily: 'HelveticaNeue',
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 16,
+                                  SizedBox(
+                                    width: 10,
                                   ),
-                                ),
-                                onPressed: () {
-                                  var collection = FirebaseFirestore.instance
-                                      .collection('nhanVienCollection');
-                                  collection
-                                      .doc(widget.nhanVien.id ?? '')
-                                      .delete();
-                                  Navigator.popUntil(
-                                      context, ModalRoute.withName('/'));
-                                  Navigator.pushNamed(context, '/NhanVien');
-                                },
+                                  Container(
+                                    width: 171,
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        primary: Colors.red[400],
+                                        elevation: 0,
+                                        padding:
+                                            EdgeInsets.fromLTRB(20, 12, 20, 12),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(25),
+                                        ),
+                                      ),
+                                      child: Text(
+                                        'Xoá dữ liệu',
+                                        style: TextStyle(
+                                          fontFamily: 'HelveticaNeue',
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        var collection = FirebaseFirestore
+                                            .instance
+                                            .collection('nhanVienCollection');
+                                        collection
+                                            .doc(widget.nhanVien.id ?? '')
+                                            .delete();
+                                        Navigator.popUntil(
+                                            context, ModalRoute.withName('/'));
+                                        Navigator.pushNamed(
+                                            context, '/NhanVien');
+                                      },
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ],
-                        ),
 
 // Thong tin ca nhan
 //show Chuc Vu
 
-                        SizedBox(
-                          height: 30,
-                        ),
+                              SizedBox(
+                                height: 30,
+                              ),
 
-                        Text(
-                          'Quá Trình Công Tác: ',
-                          style: TextStyle(
-                            fontFamily: 'Nunito',
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16,
-                            // fontStyle: FontStyle.italic,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 1,
-                        ),
-                        Container(
-                          width: 345,
-                          height: 46,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Color(0xff558FFF),
-                            ),
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(32),
-                              topRight: Radius.circular(32),
-                            ),
-                          ),
-                          child: Row(
-                            children: [
-                              Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  'Tên Chức Vụ',
-                                  style: TextStyle(
-                                    fontFamily: 'HelveticalNeue',
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                width: 223,
-                              ),
-                              Container(
-                                width: 1,
-                                color: Colors.blueAccent[200],
-                              ),
-                              Container(
-                                width: 119,
-                                alignment: Alignment.center,
-                                child: Text(
-                                  'Quá Trình',
-                                  style: TextStyle(
-                                    fontFamily: 'HelveticalNeue',
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                              Text(
+                                'Quá Trình Công Tác: ',
+                                style: TextStyle(
+                                  fontFamily: 'Nunito',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16,
+                                  //  fontWeight: FontWeight.w400,
                                 ),
                               ),
-                            ],
-                          ),
-                        ),
-                        Column(
-                          children: [
-                            for (int i = 0; i < chucVuItems.length; i++)
-                              for (int j = 0;
-                                  j < chucVuDetailItems[i].length;
-                                  j++)
-                                if (chucVuDetailItems[i][j].maNV ==
-                                    widget.nhanVien.maNV)
-                                  GestureDetector(
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            border: Border.all(
-                                              color: Color(0xff558FFF),
-                                            ),
-                                          ),
-                                          width: 345,
-                                          height: 117,
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                width: 223,
-                                                alignment: Alignment.center,
-                                                child: Text(
-                                                  chucVuItems[i].tenCV!,
-                                                  style: TextStyle(
-                                                    fontFamily: 'HelveticaNeue',
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.w400,
-                                                  ),
-                                                ),
-                                              ),
-                                              Container(
-                                                width: 1,
-                                                color: Colors.blueAccent[200],
-                                              ),
-                                              Container(
-                                                padding: EdgeInsets.all(10),
-                                                width: 119,
-                                                alignment: Alignment.center,
-                                                child: _customText2(
-                                                  ngayvao: DateFormat(
-                                                          'dd/MM/yyyy')
-                                                      .format(
-                                                          chucVuDetailItems[i]
-                                                                  [j]
-                                                              .ngayVao!),
-                                                  ngayra: chucVuDetailItems[i]
-                                                                  [j]
-                                                              .ngayRa !=
-                                                          null
-                                                      ? DateFormat('dd/MM/yyyy')
-                                                          .format(
-                                                              chucVuDetailItems[
-                                                                      i][j]
-                                                                  .ngayRa!)
-                                                      : null,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => ChucVuDetail(
-                                              chucVu: chucVuItems[i]),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                          ],
-                        ),
-// show Chuc Vu
-
-//show Doan The
-
-                        SizedBox(
-                          height: 30,
-                        ),
-
-                        Text(
-                          'Hoạt Động Đoàn Thể: ',
-                          style: TextStyle(
-                            fontFamily: 'Nunito',
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16,
-                            // fontStyle: FontStyle.italic,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 1,
-                        ),
-                        Container(
-                          width: 345,
-                          height: 46,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Color(0xff558FFF),
-                            ),
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(32),
-                              topRight: Radius.circular(32),
-                            ),
-                          ),
-                          child: Row(
-                            children: [
+                              SizedBox(
+                                height: 1,
+                              ),
                               Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  'Tên Đoàn Thể',
-                                  style: TextStyle(
-                                    fontFamily: 'HelveticalNeue',
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
+                                width: 345,
+                                height: 46,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Color(0xff558FFF),
+                                  ),
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(32),
+                                    topRight: Radius.circular(32),
                                   ),
                                 ),
-                                width: 223,
-                              ),
-                              Container(
-                                width: 1,
-                                color: Colors.blueAccent[200],
-                              ),
-                              Container(
-                                width: 119,
-                                alignment: Alignment.center,
-                                child: Text(
-                                  'Quá Trình',
-                                  style: TextStyle(
-                                    fontFamily: 'HelveticalNeue',
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Column(
-                          children: [
-                            for (int i = 0; i < doanTheItems.length; i++)
-                              for (int j = 0;
-                                  j < doanTheDetailItems[i].length;
-                                  j++)
-                                if (doanTheDetailItems[i][j].maNV ==
-                                    widget.nhanVien.maNV)
-                                  GestureDetector(
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            border: Border.all(
-                                              color: Color(0xff558FFF),
-                                            ),
-                                          ),
-                                          width: 345,
-                                          height: 117,
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                width: 223,
-                                                alignment: Alignment.center,
-                                                child: Text(
-                                                  doanTheItems[i].tenDT!,
-                                                  style: TextStyle(
-                                                    fontFamily: 'HelveticaNeue',
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.w400,
-                                                  ),
-                                                ),
-                                              ),
-                                              Container(
-                                                width: 1,
-                                                color: Colors.blueAccent[200],
-                                              ),
-                                              Container(
-                                                padding: EdgeInsets.all(10),
-                                                width: 119,
-                                                alignment: Alignment.center,
-                                                child: _customText2(
-                                                  ngayvao: DateFormat(
-                                                          'dd/MM/yyyy')
-                                                      .format(
-                                                          doanTheDetailItems[i]
-                                                                  [j]
-                                                              .ngayVao!),
-                                                  ngayra: doanTheDetailItems[i]
-                                                                  [j]
-                                                              .ngayRa !=
-                                                          null
-                                                      ? DateFormat('dd/MM/yyyy')
-                                                          .format(
-                                                              doanTheDetailItems[
-                                                                      i][j]
-                                                                  .ngayRa!)
-                                                      : null,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => DoanTheDetail(
-                                              doanThe: doanTheItems[i]),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                          ],
-                        ),
-// show Doan The
-
-//show TrinhDo
-
-                        SizedBox(
-                          height: 30,
-                        ),
-
-                        Text(
-                          'Trình Độ: ',
-                          style: TextStyle(
-                            fontFamily: 'Nunito',
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16,
-                            // fontStyle: FontStyle.italic,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 1,
-                        ),
-                        Container(
-                          width: 345,
-                          height: 46,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Color(0xff558FFF),
-                            ),
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(32),
-                              topRight: Radius.circular(32),
-                            ),
-                          ),
-                          child: Row(
-                            children: [
-                              Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  'Tên Trình Độ',
-                                  style: TextStyle(
-                                    fontFamily: 'HelveticalNeue',
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                width: 223,
-                              ),
-                              Container(
-                                width: 1,
-                                color: Colors.blueAccent[200],
-                              ),
-                              Container(
-                                width: 119,
-                                alignment: Alignment.center,
-                                child: Text(
-                                  'Hiệu lực',
-                                  style: TextStyle(
-                                    fontFamily: 'HelveticalNeue',
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Column(
-                          children: [
-                            for (int i = 0; i < trinhDoItems.length; i++)
-                              for (int j = 0;
-                                  j < trinhDoDetailItems[i].length;
-                                  j++)
-                                if (trinhDoDetailItems[i][j].maNV ==
-                                    widget.nhanVien.maNV)
-                                  GestureDetector(
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            border: Border.all(
-                                              color: Color(0xff558FFF),
-                                            ),
-                                          ),
-                                          width: 345,
-                                          height: 117,
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                width: 223,
-                                                alignment: Alignment.center,
-                                                child: Text(
-                                                  trinhDoItems[i].tenTD!,
-                                                  style: TextStyle(
-                                                    fontFamily: 'HelveticaNeue',
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.w400,
-                                                  ),
-                                                ),
-                                              ),
-                                              Container(
-                                                width: 1,
-                                                color: Colors.blueAccent[200],
-                                              ),
-                                              Container(
-                                                padding: EdgeInsets.all(10),
-                                                width: 119,
-                                                alignment: Alignment.center,
-                                                child: _customText2(
-                                                  ngayvao: DateFormat(
-                                                          'dd/MM/yyyy')
-                                                      .format(
-                                                          trinhDoDetailItems[i]
-                                                                  [j]
-                                                              .ngayVao!),
-                                                  ngayra: trinhDoDetailItems[i]
-                                                                  [j]
-                                                              .ngayRa !=
-                                                          null
-                                                      ? DateFormat('dd/MM/yyyy')
-                                                          .format(
-                                                              trinhDoDetailItems[
-                                                                      i][j]
-                                                                  .ngayRa!)
-                                                      : null,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => TrinhDoDetail(
-                                              trinhDo: trinhDoItems[i]),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                          ],
-                        ),
-// show Trinh Do
-
-// show Than Nhan
-                        SizedBox(
-                          height: 30,
-                        ),
-
-                        Text(
-                          'Thân Nhân: ',
-                          style: TextStyle(
-                            fontFamily: 'Nunito',
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16,
-                            // fontStyle: FontStyle.italic,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 1,
-                        ),
-                        Container(
-                          width: 345,
-                          height: 46,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Color(0xff558FFF),
-                            ),
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(32),
-                              topRight: Radius.circular(32),
-                            ),
-                          ),
-                          child: Row(
-                            children: [
-                              Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  'Tên Thân Nhân',
-                                  style: TextStyle(
-                                    fontFamily: 'HelveticalNeue',
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                width: 223,
-                              ),
-                              Container(
-                                width: 1,
-                                color: Colors.blueAccent[200],
-                              ),
-                              Container(
-                                width: 119,
-                                alignment: Alignment.center,
-                                child: Text(
-                                  'Mối QH',
-                                  style: TextStyle(
-                                    fontFamily: 'HelveticalNeue',
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Column(
-                          children: [
-                            for (int i = 0; i < thanNhanItems.length; i++)
-                              GestureDetector(
-                                child: Column(
+                                child: Row(
                                   children: [
                                     Container(
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                          color: Color(0xff558FFF),
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        'Tên Chức Vụ',
+                                        style: TextStyle(
+                                          fontFamily: 'HelveticalNeue',
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500,
                                         ),
                                       ),
-                                      width: 345,
-                                      height: 117,
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            width: 223,
-                                            alignment: Alignment.center,
-                                            child: Text(
-                                              thanNhanItems[i].tenTN!,
-                                              style: TextStyle(
-                                                fontFamily: 'HelveticaNeue',
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            width: 1,
-                                            color: Colors.blueAccent[200],
-                                          ),
-                                          Container(
-                                            width: 119,
-                                            alignment: Alignment.center,
-                                            child: Text(
-                                              thanNhanItems[i].moiQH!,
-                                              style: TextStyle(
-                                                fontFamily: 'HelveticaNeue',
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
+                                      width: 223,
+                                    ),
+                                    Container(
+                                      width: 1,
+                                      color: Colors.blueAccent[200],
+                                    ),
+                                    Container(
+                                      width: 119,
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        'Quá Trình',
+                                        style: TextStyle(
+                                          fontFamily: 'HelveticalNeue',
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                       ),
                                     ),
                                   ],
                                 ),
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => DonViThanNhan(),
+                              ),
+                              Column(
+                                children: [
+                                  for (int i = 0; i < chucVuItems.length; i++)
+                                    for (int j = 0;
+                                        j < chucVuDetailItems[i].length;
+                                        j++)
+                                      if (chucVuDetailItems[i][j].maNV ==
+                                          widget.nhanVien.maNV)
+                                        GestureDetector(
+                                          child: Column(
+                                            children: [
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    color: Color(0xff558FFF),
+                                                  ),
+                                                ),
+                                                width: 345,
+                                                height: 117,
+                                                child: Row(
+                                                  children: [
+                                                    Container(
+                                                      width: 223,
+                                                      alignment:
+                                                          Alignment.center,
+                                                      child: Text(
+                                                        chucVuItems[i].tenCV!,
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'HelveticaNeue',
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      width: 1,
+                                                      color: Colors
+                                                          .blueAccent[200],
+                                                    ),
+                                                    Container(
+                                                      padding:
+                                                          EdgeInsets.all(10),
+                                                      width: 119,
+                                                      alignment:
+                                                          Alignment.center,
+                                                      child: _customText2(
+                                                        ngayvao: DateFormat(
+                                                                'dd/MM/yyyy')
+                                                            .format(
+                                                                chucVuDetailItems[
+                                                                        i][j]
+                                                                    .ngayVao!),
+                                                        ngayra: chucVuDetailItems[
+                                                                        i][j]
+                                                                    .ngayRa !=
+                                                                null
+                                                            ? DateFormat(
+                                                                    'dd/MM/yyyy')
+                                                                .format(
+                                                                    chucVuDetailItems[
+                                                                            i][j]
+                                                                        .ngayRa!)
+                                                            : null,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ChucVuDetail(
+                                                        chucVu: chucVuItems[i]),
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                ],
+                              ),
+// show Chuc Vu
+
+//show Doan The
+
+                              SizedBox(
+                                height: 30,
+                              ),
+
+                              Text(
+                                'Hoạt Động Đoàn Thể: ',
+                                style: TextStyle(
+                                  fontFamily: 'Nunito',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16,
+                                  //  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 1,
+                              ),
+                              Container(
+                                width: 345,
+                                height: 46,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Color(0xff558FFF),
+                                  ),
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(32),
+                                    topRight: Radius.circular(32),
+                                  ),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        'Tên Đoàn Thể',
+                                        style: TextStyle(
+                                          fontFamily: 'HelveticalNeue',
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      width: 223,
                                     ),
-                                  );
-                                },
+                                    Container(
+                                      width: 1,
+                                      color: Colors.blueAccent[200],
+                                    ),
+                                    Container(
+                                      width: 119,
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        'Quá Trình',
+                                        style: TextStyle(
+                                          fontFamily: 'HelveticalNeue',
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                          ],
-                        ),
+                              Column(
+                                children: [
+                                  for (int i = 0; i < doanTheItems.length; i++)
+                                    for (int j = 0;
+                                        j < doanTheDetailItems[i].length;
+                                        j++)
+                                      if (doanTheDetailItems[i][j].maNV ==
+                                          widget.nhanVien.maNV)
+                                        GestureDetector(
+                                          child: Column(
+                                            children: [
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    color: Color(0xff558FFF),
+                                                  ),
+                                                ),
+                                                width: 345,
+                                                height: 117,
+                                                child: Row(
+                                                  children: [
+                                                    Container(
+                                                      width: 223,
+                                                      alignment:
+                                                          Alignment.center,
+                                                      child: Text(
+                                                        doanTheItems[i].tenDT!,
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'HelveticaNeue',
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      width: 1,
+                                                      color: Colors
+                                                          .blueAccent[200],
+                                                    ),
+                                                    Container(
+                                                      padding:
+                                                          EdgeInsets.all(10),
+                                                      width: 119,
+                                                      alignment:
+                                                          Alignment.center,
+                                                      child: _customText2(
+                                                        ngayvao: DateFormat(
+                                                                'dd/MM/yyyy')
+                                                            .format(
+                                                                doanTheDetailItems[
+                                                                        i][j]
+                                                                    .ngayVao!),
+                                                        ngayra: doanTheDetailItems[
+                                                                        i][j]
+                                                                    .ngayRa !=
+                                                                null
+                                                            ? DateFormat(
+                                                                    'dd/MM/yyyy')
+                                                                .format(
+                                                                    doanTheDetailItems[
+                                                                            i][j]
+                                                                        .ngayRa!)
+                                                            : null,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    DoanTheDetail(
+                                                        doanThe:
+                                                            doanTheItems[i]),
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                ],
+                              ),
+// show Doan The
+
+//show TrinhDo
+
+                              SizedBox(
+                                height: 30,
+                              ),
+
+                              Text(
+                                'Trình Độ: ',
+                                style: TextStyle(
+                                  fontFamily: 'Nunito',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16,
+                                  //  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 1,
+                              ),
+                              Container(
+                                width: 345,
+                                height: 46,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Color(0xff558FFF),
+                                  ),
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(32),
+                                    topRight: Radius.circular(32),
+                                  ),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        'Tên Trình Độ',
+                                        style: TextStyle(
+                                          fontFamily: 'HelveticalNeue',
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      width: 223,
+                                    ),
+                                    Container(
+                                      width: 1,
+                                      color: Colors.blueAccent[200],
+                                    ),
+                                    Container(
+                                      width: 119,
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        'Hiệu lực',
+                                        style: TextStyle(
+                                          fontFamily: 'HelveticalNeue',
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Column(
+                                children: [
+                                  for (int i = 0; i < trinhDoItems.length; i++)
+                                    for (int j = 0;
+                                        j < trinhDoDetailItems[i].length;
+                                        j++)
+                                      if (trinhDoDetailItems[i][j].maNV ==
+                                          widget.nhanVien.maNV)
+                                        GestureDetector(
+                                          child: Column(
+                                            children: [
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    color: Color(0xff558FFF),
+                                                  ),
+                                                ),
+                                                width: 345,
+                                                height: 117,
+                                                child: Row(
+                                                  children: [
+                                                    Container(
+                                                      width: 223,
+                                                      alignment:
+                                                          Alignment.center,
+                                                      child: Text(
+                                                        trinhDoItems[i].tenTD!,
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'HelveticaNeue',
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      width: 1,
+                                                      color: Colors
+                                                          .blueAccent[200],
+                                                    ),
+                                                    Container(
+                                                      padding:
+                                                          EdgeInsets.all(10),
+                                                      width: 119,
+                                                      alignment:
+                                                          Alignment.center,
+                                                      child: _customText2(
+                                                        ngayvao: DateFormat(
+                                                                'dd/MM/yyyy')
+                                                            .format(
+                                                                trinhDoDetailItems[
+                                                                        i][j]
+                                                                    .ngayVao!),
+                                                        ngayra: trinhDoDetailItems[
+                                                                        i][j]
+                                                                    .ngayRa !=
+                                                                null
+                                                            ? DateFormat(
+                                                                    'dd/MM/yyyy')
+                                                                .format(
+                                                                    trinhDoDetailItems[
+                                                                            i][j]
+                                                                        .ngayRa!)
+                                                            : null,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    TrinhDoDetail(
+                                                        trinhDo:
+                                                            trinhDoItems[i]),
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                ],
+                              ),
+// show Trinh Do
+
 // show Than Nhan
-
-// show khen thuong
-                        SizedBox(
-                          height: 30,
-                        ),
-
-                        Row(
-                          children: [
-                            Text(
-                              'Khen Thưởng và Kỷ Luật: ',
-                              style: TextStyle(
-                                fontFamily: 'Nunito',
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16,
-                                // fontStyle: FontStyle.italic,
+                              SizedBox(
+                                height: 30,
                               ),
-                            ),
-                            SizedBox(width: 10),
-                            Container(
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  primary: Colors.blueAccent[200],
-                                  elevation: 0,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(25),
+
+                              Text(
+                                'Thân Nhân: ',
+                                style: TextStyle(
+                                  fontFamily: 'Nunito',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16,
+                                  //  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 1,
+                              ),
+                              Container(
+                                width: 345,
+                                height: 46,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Color(0xff558FFF),
+                                  ),
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(32),
+                                    topRight: Radius.circular(32),
                                   ),
                                 ),
-                                child: Text(
-                                  'Thêm dữ liệu',
-                                  style: TextStyle(
-                                    fontFamily: 'Nunito',
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 14,
-                                  ),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        'Tên Thân Nhân',
+                                        style: TextStyle(
+                                          fontFamily: 'HelveticalNeue',
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      width: 223,
+                                    ),
+                                    Container(
+                                      width: 1,
+                                      color: Colors.blueAccent[200],
+                                    ),
+                                    Container(
+                                      width: 119,
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        'Mối QH',
+                                        style: TextStyle(
+                                          fontFamily: 'HelveticalNeue',
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                onPressed: () {
-                                  var _capDoController =
-                                      TextEditingController();
-                                  var _noiDungController =
-                                      TextEditingController();
-                                  var _loaiController = TextEditingController();
-                                  DateTime? _flagKT;
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) => Dialog(
+                              ),
+                              Column(
+                                children: [
+                                  for (int i = 0; i < thanNhanItems.length; i++)
+                                    GestureDetector(
                                       child: Column(
-                                        mainAxisSize: MainAxisSize.min,
                                         children: [
-                                          SizedBox(height: 10),
-                                          _customTile(
-                                            containerWidth: 219,
-                                            title: 'Loại:',
-                                            hintText: 'Khen Thưởng',
-                                            controller: _loaiController,
-                                          ),
-                                          SizedBox(height: 12),
-                                          _customTile(
-                                            containerWidth: 219,
-                                            title: 'Nội Dung:',
-                                            hintText: 'Giảng Viên Giỏi',
-                                            controller: _noiDungController,
-                                          ),
-                                          SizedBox(height: 12),
-                                          _customTile(
-                                            containerWidth: 219,
-                                            title: 'Cấp Độ:',
-                                            hintText: 'Chủ Tịch Nước',
-                                            controller: _capDoController,
-                                          ),
-                                          SizedBox(height: 12),
-                                          GestureDetector(
-                                            child: Container(
-                                              padding: EdgeInsets.only(
-                                                left: 7,
-                                                top: 5,
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                color: Color(0xff558FFF),
                                               ),
-                                              decoration: BoxDecoration(
-                                                color: Color(0xffF5F5F5),
-                                                borderRadius:
-                                                    BorderRadius.circular(7),
-                                              ),
-                                              height: 54,
-                                              width: 219,
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    'Ngày Nhận',
+                                            ),
+                                            width: 345,
+                                            height: 117,
+                                            child: Row(
+                                              children: [
+                                                Container(
+                                                  width: 223,
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    thanNhanItems[i].tenTN!,
                                                     style: TextStyle(
                                                       fontFamily:
                                                           'HelveticaNeue',
-                                                      fontStyle:
-                                                          FontStyle.italic,
-                                                      fontSize: 12.8,
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.w400,
                                                     ),
                                                   ),
-                                                  _flagKT != null
-                                                      ? Text(
-                                                          DateFormat(
-                                                                  'dd/MM/yyyy')
-                                                              .format(_flagKT!),
-                                                        )
-                                                      : Text('XX/XX/XXXX'),
-                                                ],
-                                              ),
-                                            ),
-                                            onTap: () {
-                                              showDatePicker(
-                                                context: context,
-                                                initialDate: _flagKT != null
-                                                    ? _flagKT!
-                                                    : DateTime.now(),
-                                                firstDate: DateTime(
-                                                    DateTime.now().year - 20),
-                                                lastDate: DateTime(
-                                                    DateTime.now().year + 20),
-                                              ).then((date) {
-                                                setState(() {
-                                                  _flagKT = date;
-                                                  print(_flagKT);
-                                                });
-                                              });
-                                            },
-                                          ),
-                                          SizedBox(height: 15),
-                                          Container(
-                                            width: 171,
-                                            child: ElevatedButton(
-                                              style: ElevatedButton.styleFrom(
-                                                primary: Colors.blueAccent[200],
-                                                elevation: 0,
-                                                padding: EdgeInsets.fromLTRB(
-                                                    20, 12, 20, 12),
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(25),
                                                 ),
-                                              ),
-                                              child: Text(
-                                                'Thêm dữ liệu',
-                                                style: TextStyle(
-                                                  fontFamily: 'HelveticaNeue',
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: 16,
+                                                Container(
+                                                  width: 1,
+                                                  color: Colors.blueAccent[200],
                                                 ),
-                                              ),
-                                              onPressed: () {
-                                                String id = FirebaseFirestore
-                                                    .instance
-                                                    .collection(
-                                                        'khenThuongCollection')
-                                                    .doc()
-                                                    .id;
-                                                KhenThuongItem data =
-                                                    new KhenThuongItem(
-                                                  maNV: widget.nhanVien.maNV,
-                                                  capDoKhenThuong:
-                                                      _capDoController.text,
-                                                  noiDungKhenThuong:
-                                                      _noiDungController.text,
-                                                  loai: _loaiController.text,
-                                                  ngayKhenThuong: _flagKT,
-                                                  id: id,
-                                                );
-
-                                                FirebaseFirestore.instance
-                                                    .collection(
-                                                        'khenThuongCollection')
-                                                    .doc(id)
-                                                    .set(data.toJson());
-
-                                                Navigator.popUntil(context,
-                                                    ModalRoute.withName('/'));
-                                                Navigator.pushNamed(
-                                                    context, '/NhanVien');
-                                              },
+                                                Container(
+                                                  width: 119,
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    thanNhanItems[i].moiQH!,
+                                                    style: TextStyle(
+                                                      fontFamily:
+                                                          'HelveticaNeue',
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                          SizedBox(height: 10),
                                         ],
                                       ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 1,
-                        ),
-                        Container(
-                          width: 345,
-                          height: 46,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Color(0xff558FFF),
-                            ),
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(32),
-                              topRight: Radius.circular(32),
-                            ),
-                          ),
-                          child: Row(
-                            children: [
-                              Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  'Nội Dung',
-                                  style: TextStyle(
-                                    fontFamily: 'HelveticalNeue',
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                width: 223,
-                              ),
-                              Container(
-                                width: 1,
-                                color: Colors.blueAccent[200],
-                              ),
-                              Container(
-                                width: 119,
-                                alignment: Alignment.center,
-                                child: Text(
-                                  'Loại',
-                                  style: TextStyle(
-                                    fontFamily: 'HelveticalNeue',
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Column(
-                          children: [
-                            for (int index = 0;
-                                index < khenThuongItems.length;
-                                index++)
-                              if (khenThuongItems[index].maNV ==
-                                  widget.nhanVien.maNV)
-                                Slidable(
-                                  actionPane: SlidableDrawerActionPane(),
-                                  secondaryActions: <Widget>[
-                                    IconSlideAction(
-                                      caption: 'Sửa',
-                                      color: Colors.blueAccent[200],
-                                      icon: Icons.build,
                                       onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                DonViThanNhan(),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                ],
+                              ),
+// show Than Nhan
+
+// show khen thuong
+                              SizedBox(
+                                height: 30,
+                              ),
+
+                              Row(
+                                children: [
+                                  Text(
+                                    'Khen Thưởng và Kỷ Luật: ',
+                                    style: TextStyle(
+                                      fontFamily: 'Nunito',
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16,
+                                      //  fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  SizedBox(width: 10),
+                                  Container(
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        primary: Colors.blueAccent[200],
+                                        elevation: 0,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(25),
+                                        ),
+                                      ),
+                                      child: Text(
+                                        'Thêm dữ liệu',
+                                        style: TextStyle(
+                                          fontFamily: 'Nunito',
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                      onPressed: () {
                                         var _capDoController =
                                             TextEditingController();
                                         var _noiDungController =
@@ -1209,20 +1054,6 @@ class _NhanVienDetailState extends State<NhanVienDetail> {
                                         var _loaiController =
                                             TextEditingController();
                                         DateTime? _flagKT;
-                                        _noiDungController.text =
-                                            khenThuongItems[index]
-                                                    .noiDungKhenThuong ??
-                                                '';
-                                        _loaiController.text =
-                                            khenThuongItems[index].loai ?? '';
-                                        _capDoController.text =
-                                            khenThuongItems[index]
-                                                    .capDoKhenThuong ??
-                                                '';
-
-                                        _flagKT = khenThuongItems[index]
-                                            .ngayKhenThuong;
-
                                         showDialog(
                                           context: context,
                                           builder: (context) => Dialog(
@@ -1247,7 +1078,7 @@ class _NhanVienDetailState extends State<NhanVienDetail> {
                                                 SizedBox(height: 12),
                                                 _customTile(
                                                   containerWidth: 219,
-                                                  title: 'Cấp Độ: ',
+                                                  title: 'Cấp Độ:',
                                                   hintText: 'Chủ Tịch Nước',
                                                   controller: _capDoController,
                                                 ),
@@ -1272,7 +1103,7 @@ class _NhanVienDetailState extends State<NhanVienDetail> {
                                                               .start,
                                                       children: [
                                                         Text(
-                                                          'Ngày Vào',
+                                                          'Ngày Nhận',
                                                           style: TextStyle(
                                                             fontFamily:
                                                                 'HelveticaNeue',
@@ -1334,7 +1165,7 @@ class _NhanVienDetailState extends State<NhanVienDetail> {
                                                       ),
                                                     ),
                                                     child: Text(
-                                                      'Sửa dữ liệu',
+                                                      'Thêm dữ liệu',
                                                       style: TextStyle(
                                                         fontFamily:
                                                             'HelveticaNeue',
@@ -1344,6 +1175,12 @@ class _NhanVienDetailState extends State<NhanVienDetail> {
                                                       ),
                                                     ),
                                                     onPressed: () {
+                                                      String id = FirebaseFirestore
+                                                          .instance
+                                                          .collection(
+                                                              'khenThuongCollection')
+                                                          .doc()
+                                                          .id;
                                                       KhenThuongItem data =
                                                           new KhenThuongItem(
                                                         maNV: widget
@@ -1357,19 +1194,14 @@ class _NhanVienDetailState extends State<NhanVienDetail> {
                                                         loai: _loaiController
                                                             .text,
                                                         ngayKhenThuong: _flagKT,
-                                                        id: khenThuongItems[
-                                                                index]
-                                                            .id,
+                                                        id: id,
                                                       );
 
                                                       FirebaseFirestore.instance
                                                           .collection(
                                                               'khenThuongCollection')
-                                                          .doc(khenThuongItems[
-                                                                  index]
-                                                              .id)
-                                                          .update(
-                                                              data.toJson());
+                                                          .doc(id)
+                                                          .set(data.toJson());
 
                                                       Navigator.popUntil(
                                                           context,
@@ -1387,102 +1219,390 @@ class _NhanVienDetailState extends State<NhanVienDetail> {
                                         );
                                       },
                                     ),
-                                    IconSlideAction(
-                                      caption: 'Xóa',
-                                      color: Colors.red[400],
-                                      icon: Icons.delete,
-                                      onTap: () {
-                                        var collection = FirebaseFirestore
-                                            .instance
-                                            .collection('khenThuongCollection');
-                                        collection
-                                            .doc(khenThuongItems[index].id)
-                                            .delete();
-                                        Navigator.popUntil(
-                                            context, ModalRoute.withName('/'));
-                                        Navigator.pushNamed(
-                                            context, '/NhanVien');
-                                      },
-                                    )
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 1,
+                              ),
+                              Container(
+                                width: 345,
+                                height: 46,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Color(0xff558FFF),
+                                  ),
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(32),
+                                    topRight: Radius.circular(32),
+                                  ),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        'Nội Dung',
+                                        style: TextStyle(
+                                          fontFamily: 'HelveticalNeue',
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      width: 223,
+                                    ),
+                                    Container(
+                                      width: 1,
+                                      color: Colors.blueAccent[200],
+                                    ),
+                                    Container(
+                                      width: 119,
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        'Loại',
+                                        style: TextStyle(
+                                          fontFamily: 'HelveticalNeue',
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ),
                                   ],
-                                  child: GestureDetector(
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            border: Border.all(
-                                              color: Color(0xff558FFF),
-                                            ),
-                                          ),
-                                          width: 345,
-                                          height: 117,
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                width: 223,
-                                                alignment: Alignment.center,
-                                                child: Text(
+                                ),
+                              ),
+                              Column(
+                                children: [
+                                  for (int index = 0;
+                                      index < khenThuongItems.length;
+                                      index++)
+                                    if (khenThuongItems[index].maNV ==
+                                        widget.nhanVien.maNV)
+                                      Slidable(
+                                        actionPane: SlidableDrawerActionPane(),
+                                        secondaryActions: <Widget>[
+                                          IconSlideAction(
+                                            caption: 'Sửa',
+                                            color: Colors.blueAccent[200],
+                                            icon: Icons.build,
+                                            onTap: () {
+                                              var _capDoController =
+                                                  TextEditingController();
+                                              var _noiDungController =
+                                                  TextEditingController();
+                                              var _loaiController =
+                                                  TextEditingController();
+                                              DateTime? _flagKT;
+                                              _noiDungController.text =
                                                   khenThuongItems[index]
-                                                      .noiDungKhenThuong!,
-                                                  style: TextStyle(
-                                                    fontFamily: 'HelveticaNeue',
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.w400,
+                                                          .noiDungKhenThuong ??
+                                                      '';
+                                              _loaiController.text =
+                                                  khenThuongItems[index].loai ??
+                                                      '';
+                                              _capDoController.text =
+                                                  khenThuongItems[index]
+                                                          .capDoKhenThuong ??
+                                                      '';
+
+                                              _flagKT = khenThuongItems[index]
+                                                  .ngayKhenThuong;
+
+                                              showDialog(
+                                                context: context,
+                                                builder: (context) => Dialog(
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    children: [
+                                                      SizedBox(height: 10),
+                                                      _customTile(
+                                                        containerWidth: 219,
+                                                        title: 'Loại:',
+                                                        hintText: 'Khen Thưởng',
+                                                        controller:
+                                                            _loaiController,
+                                                      ),
+                                                      SizedBox(height: 12),
+                                                      _customTile(
+                                                        containerWidth: 219,
+                                                        title: 'Nội Dung:',
+                                                        hintText:
+                                                            'Giảng Viên Giỏi',
+                                                        controller:
+                                                            _noiDungController,
+                                                      ),
+                                                      SizedBox(height: 12),
+                                                      _customTile(
+                                                        containerWidth: 219,
+                                                        title: 'Cấp Độ: ',
+                                                        hintText:
+                                                            'Chủ Tịch Nước',
+                                                        controller:
+                                                            _capDoController,
+                                                      ),
+                                                      SizedBox(height: 12),
+                                                      GestureDetector(
+                                                        child: Container(
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                            left: 7,
+                                                            top: 5,
+                                                          ),
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Color(
+                                                                0xffF5F5F5),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        7),
+                                                          ),
+                                                          height: 54,
+                                                          width: 219,
+                                                          child: Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                'Ngày Vào',
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontFamily:
+                                                                      'HelveticaNeue',
+                                                                  fontStyle:
+                                                                      FontStyle
+                                                                          .italic,
+                                                                  fontSize:
+                                                                      12.8,
+                                                                ),
+                                                              ),
+                                                              _flagKT != null
+                                                                  ? Text(
+                                                                      DateFormat(
+                                                                              'dd/MM/yyyy')
+                                                                          .format(
+                                                                              _flagKT!),
+                                                                    )
+                                                                  : Text(
+                                                                      'XX/XX/XXXX'),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        onTap: () {
+                                                          showDatePicker(
+                                                            context: context,
+                                                            initialDate:
+                                                                _flagKT != null
+                                                                    ? _flagKT!
+                                                                    : DateTime
+                                                                        .now(),
+                                                            firstDate: DateTime(
+                                                                DateTime.now()
+                                                                        .year -
+                                                                    20),
+                                                            lastDate: DateTime(
+                                                                DateTime.now()
+                                                                        .year +
+                                                                    20),
+                                                          ).then((date) {
+                                                            setState(() {
+                                                              _flagKT = date;
+                                                              print(_flagKT);
+                                                            });
+                                                          });
+                                                        },
+                                                      ),
+                                                      SizedBox(height: 15),
+                                                      Container(
+                                                        width: 171,
+                                                        child: ElevatedButton(
+                                                          style: ElevatedButton
+                                                              .styleFrom(
+                                                            primary: Colors
+                                                                    .blueAccent[
+                                                                200],
+                                                            elevation: 0,
+                                                            padding: EdgeInsets
+                                                                .fromLTRB(20,
+                                                                    12, 20, 12),
+                                                            shape:
+                                                                RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          25),
+                                                            ),
+                                                          ),
+                                                          child: Text(
+                                                            'Sửa dữ liệu',
+                                                            style: TextStyle(
+                                                              fontFamily:
+                                                                  'HelveticaNeue',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              fontSize: 16,
+                                                            ),
+                                                          ),
+                                                          onPressed: () {
+                                                            KhenThuongItem
+                                                                data =
+                                                                new KhenThuongItem(
+                                                              maNV: widget
+                                                                  .nhanVien
+                                                                  .maNV,
+                                                              capDoKhenThuong:
+                                                                  _capDoController
+                                                                      .text,
+                                                              noiDungKhenThuong:
+                                                                  _noiDungController
+                                                                      .text,
+                                                              loai:
+                                                                  _loaiController
+                                                                      .text,
+                                                              ngayKhenThuong:
+                                                                  _flagKT,
+                                                              id: khenThuongItems[
+                                                                      index]
+                                                                  .id,
+                                                            );
+
+                                                            FirebaseFirestore
+                                                                .instance
+                                                                .collection(
+                                                                    'khenThuongCollection')
+                                                                .doc(khenThuongItems[
+                                                                        index]
+                                                                    .id)
+                                                                .update(data
+                                                                    .toJson());
+
+                                                            Navigator.popUntil(
+                                                                context,
+                                                                ModalRoute
+                                                                    .withName(
+                                                                        '/'));
+                                                            Navigator.pushNamed(
+                                                                context,
+                                                                '/NhanVien');
+                                                          },
+                                                        ),
+                                                      ),
+                                                      SizedBox(height: 10),
+                                                    ],
                                                   ),
                                                 ),
-                                              ),
+                                              );
+                                            },
+                                          ),
+                                          IconSlideAction(
+                                            caption: 'Xóa',
+                                            color: Colors.red[400],
+                                            icon: Icons.delete,
+                                            onTap: () {
+                                              var collection = FirebaseFirestore
+                                                  .instance
+                                                  .collection(
+                                                      'khenThuongCollection');
+                                              collection
+                                                  .doc(
+                                                      khenThuongItems[index].id)
+                                                  .delete();
+                                              Navigator.popUntil(context,
+                                                  ModalRoute.withName('/'));
+                                              Navigator.pushNamed(
+                                                  context, '/NhanVien');
+                                            },
+                                          )
+                                        ],
+                                        child: GestureDetector(
+                                          child: Column(
+                                            children: [
                                               Container(
-                                                width: 1,
-                                                color: Colors.blueAccent[200],
-                                              ),
-                                              Container(
-                                                width: 119,
-                                                alignment: Alignment.center,
-                                                child: Text(
-                                                  khenThuongItems[index].loai!,
-                                                  style: TextStyle(
-                                                    fontFamily: 'HelveticaNeue',
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.w400,
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    color: Color(0xff558FFF),
                                                   ),
+                                                ),
+                                                width: 345,
+                                                height: 117,
+                                                child: Row(
+                                                  children: [
+                                                    Container(
+                                                      width: 223,
+                                                      alignment:
+                                                          Alignment.center,
+                                                      child: Text(
+                                                        khenThuongItems[index]
+                                                            .noiDungKhenThuong!,
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'HelveticaNeue',
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      width: 1,
+                                                      color: Colors
+                                                          .blueAccent[200],
+                                                    ),
+                                                    Container(
+                                                      width: 119,
+                                                      alignment:
+                                                          Alignment.center,
+                                                      child: Text(
+                                                        khenThuongItems[index]
+                                                            .loai!,
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'HelveticaNeue',
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
                                             ],
                                           ),
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    KhenThuongDetail(
+                                                        khenThuong:
+                                                            khenThuongItems[
+                                                                index]),
+                                              ),
+                                            );
+                                          },
                                         ),
-                                      ],
-                                    ),
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              KhenThuongDetail(
-                                                  khenThuong:
-                                                      khenThuongItems[index]),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                          ],
-                        ),
+                                      ),
+                                ],
+                              ),
 
 // show khen thuong
 
-                        SizedBox(
-                          height: 20,
-                        ),
-                      ],
+                              SizedBox(
+                                height: 20,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
-    );
+            ),
+          );
   }
 }
 
@@ -1511,6 +1631,13 @@ class _CustomTextField extends StatelessWidget {
       decoration: BoxDecoration(
         color: Color(0xffF5F5F5),
         borderRadius: BorderRadius.circular(7),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.25),
+            blurRadius: 4,
+            offset: Offset(0, 4),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1528,7 +1655,7 @@ Widget customTitle(String title) {
     title,
     style: TextStyle(
       fontFamily: 'HelveticaNeue',
-      fontStyle: FontStyle.italic,
+      fontWeight: FontWeight.w400,
       fontSize: 12.8,
     ),
   );
@@ -1552,7 +1679,7 @@ Widget _customText2({String? ngayvao, var ngayra}) {
         'Từ: ',
         style: TextStyle(
           fontFamily: 'HelveticaNeue',
-          fontStyle: FontStyle.italic,
+          fontWeight: FontWeight.w400,
           fontSize: 12.8,
         ),
       ),
@@ -1568,7 +1695,7 @@ Widget _customText2({String? ngayvao, var ngayra}) {
         'Đến: ',
         style: TextStyle(
           fontFamily: 'HelveticaNeue',
-          fontStyle: FontStyle.italic,
+          fontWeight: FontWeight.w400,
           fontSize: 12.8,
         ),
       ),
@@ -1609,7 +1736,14 @@ Widget _customTile({
     ),
     decoration: BoxDecoration(
       color: Color(0xffF5F5F5),
-      borderRadius: BorderRadius.circular(7),
+      borderRadius: BorderRadius.circular(10),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withOpacity(0.25),
+          blurRadius: 4,
+          offset: Offset(0, 4),
+        ),
+      ],
     ),
     height: height ?? 54,
     width: containerWidth,
@@ -1634,7 +1768,7 @@ Widget _customTitle(String title) {
     title,
     style: TextStyle(
       fontFamily: 'HelveticaNeue',
-      fontStyle: FontStyle.italic,
+      fontWeight: FontWeight.w400,
       fontSize: 12.8,
     ),
   );

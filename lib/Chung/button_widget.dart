@@ -34,7 +34,7 @@ class ButtonHeaderWidget extends StatelessWidget {
             title,
             style: TextStyle(
               fontFamily: 'HelveticaNeue',
-              fontStyle: FontStyle.italic,
+              fontWeight: FontWeight.w400,
               fontSize: 12.8,
             ),
           ),

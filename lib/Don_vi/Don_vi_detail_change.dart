@@ -51,7 +51,7 @@ class _DonViDetailChangeState extends State<DonViDetailChange> {
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: Navigation(
-          tittleText: 'Quản lí Đơn vị',
+          tittleText: 'Quản lý Đơn Vị',
           backgroundOpacity: 0,
           elevationHeight: 0,
         ),
@@ -85,6 +85,7 @@ class _DonViDetailChangeState extends State<DonViDetailChange> {
                             setState(
                               () {
                                 this.imageUrl = imageUrl;
+                                print('a: ${this.imageUrl}');
                               },
                             );
                           },
@@ -101,24 +102,24 @@ class _DonViDetailChangeState extends State<DonViDetailChange> {
                         customTile(
                           controller: _maDVController,
                           containerWidth: 123,
-                          title: 'Mã Đơn vị',
+                          title: 'Mã Đơn Vị',
                           hintText: 'Eg:. SE',
                         ),
 //Mã đơn vị
                         SizedBox(
                           width: 10,
                         ),
-// Tên Đơn vị
+// Tên Đơn Vị
 
                         customTile(
                           controller: _tenDVController,
                           containerWidth: 219,
                           maxLines: 3,
                           height: 90,
-                          title: 'Tên Đơn vị',
+                          title: 'Tên Đơn Vị',
                           hintText: 'Eg:. Khoa Công nghệ phần mềm',
                         ),
-// Tên Đơn vị
+// Tên Đơn Vị
                       ],
                     ),
                     SizedBox(
@@ -161,6 +162,13 @@ class _DonViDetailChangeState extends State<DonViDetailChange> {
                       decoration: BoxDecoration(
                         color: Color(0xffF5F5F5),
                         borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.25),
+                            blurRadius: 4,
+                            offset: Offset(0, 4),
+                          ),
+                        ],
                       ),
                       height: 170,
                       width: 353,
@@ -324,6 +332,11 @@ class _DonViDetailChangeState extends State<DonViDetailChange> {
                           ),
                         ),
                         onPressed: () {
+                          setState(
+                            () {
+                              this.imageUrl = imageUrl;
+                            },
+                          );
                           DiaChi diaChi = new DiaChi(
                             phuong: _phuongController.text,
                             soNha: _soNhaController.text,
@@ -367,12 +380,19 @@ class _DonViDetailChangeState extends State<DonViDetailChange> {
   }) {
     return Container(
       padding: EdgeInsets.only(
+        top: 3,
         left: 7,
-        top: 5,
       ),
       decoration: BoxDecoration(
         color: Color(0xffF5F5F5),
         borderRadius: BorderRadius.circular(7),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.25),
+            blurRadius: 4,
+            offset: Offset(0, 4),
+          ),
+        ],
       ),
       height: height ?? 54,
       width: containerWidth,
@@ -397,7 +417,7 @@ class _DonViDetailChangeState extends State<DonViDetailChange> {
       title,
       style: TextStyle(
         fontFamily: 'HelveticaNeue',
-        fontStyle: FontStyle.italic,
+        fontWeight: FontWeight.w400,
         fontSize: 12.8,
       ),
     );

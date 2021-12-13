@@ -56,7 +56,7 @@ class _NhanVienState extends State<NhanVien> {
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: Navigation(
-          tittleText: 'Quản lí Nhân viên',
+          tittleText: 'Quản lý Nhân Viên',
           backgroundOpacity: 0,
           elevationHeight: 0,
         ),
@@ -118,7 +118,7 @@ class _NhanVienState extends State<NhanVien> {
                                 width: 243,
                                 alignment: Alignment.center,
                                 child: Text(
-                                  'Tên Nhân viên',
+                                  'Tên Nhân Viên',
                                   style: TextStyle(
                                     fontFamily: 'HelveticalNeue',
                                     fontSize: 22.5,

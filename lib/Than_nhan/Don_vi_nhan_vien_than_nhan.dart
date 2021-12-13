@@ -59,7 +59,7 @@ class _DonViThanNhanState extends State<DonViThanNhan> {
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: Navigation(
-          tittleText: 'Quản lí Thân Nhân',
+          tittleText: 'Quản lý Thân Nhân',
           backgroundOpacity: 0,
           elevationHeight: 0,
         ),
@@ -118,7 +118,7 @@ class _DonViThanNhanState extends State<DonViThanNhan> {
                                 width: 243,
                                 alignment: Alignment.center,
                                 child: Text(
-                                  'Tên Đơn vị',
+                                  'Tên Đơn Vị',
                                   style: TextStyle(
                                     fontFamily: 'HelveticalNeue',
                                     fontSize: 22.5,

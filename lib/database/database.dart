@@ -150,7 +150,7 @@ class GetNhanVienCollection {
       final _tenNVLower = item.tenNV!.toLowerCase();
       final _searchLower = query.toLowerCase();
 
-      return _maNVLower.contains(_searchLower) ||
+      return _maDV == maDV && _maNVLower.contains(_searchLower) ||
           _tenNVLower.contains(_searchLower) && _maDV == maDV;
     }).toList();
   }

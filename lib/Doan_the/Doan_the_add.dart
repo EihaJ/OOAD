@@ -30,7 +30,7 @@ class _DoanTheAddState extends State<DoanTheAdd> {
           SizedBox(
             height: 12,
           ),
-// Tên Đơn vị
+// Tên Đơn Vị
 
           customTile(
             controller: tenDTController,
@@ -38,7 +38,7 @@ class _DoanTheAddState extends State<DoanTheAdd> {
             title: 'Tên Đoàn Thể',
             hintText: 'Eg:. CEO',
           ),
-// Tên Đơn vị
+// Tên Đơn Vị
 
           SizedBox(
             height: 15,
@@ -92,12 +92,19 @@ class _DoanTheAddState extends State<DoanTheAdd> {
   }) {
     return Container(
       padding: EdgeInsets.only(
+        top: 3,
         left: 7,
-        top: 5,
       ),
       decoration: BoxDecoration(
         color: Color(0xffF5F5F5),
         borderRadius: BorderRadius.circular(7),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.25),
+            blurRadius: 4,
+            offset: Offset(0, 4),
+          ),
+        ],
       ),
       height: height ?? 54,
       width: containerWidth,
@@ -122,7 +129,7 @@ class _DoanTheAddState extends State<DoanTheAdd> {
       title,
       style: TextStyle(
         fontFamily: 'HelveticaNeue',
-        fontStyle: FontStyle.italic,
+        fontWeight: FontWeight.w400,
         fontSize: 12.8,
       ),
     );

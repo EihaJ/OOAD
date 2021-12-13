@@ -24,7 +24,7 @@ class _DonViDetailState extends State<DonViDetail> {
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: Navigation(
-          tittleText: 'Quản lí Đơn vị',
+          tittleText: 'Quản lý Đơn Vị',
           backgroundOpacity: 0,
           elevationHeight: 0,
         ),
@@ -72,7 +72,7 @@ class _DonViDetailState extends State<DonViDetail> {
                     children: [
                       _CustomTextField(
                         width: 123,
-                        title: 'Mã Đơn vị',
+                        title: 'Mã Đơn Vị',
                         text: widget.donVi.maDV ?? '',
                       ),
                       SizedBox(width: 10),
@@ -115,6 +115,13 @@ class _DonViDetailState extends State<DonViDetail> {
                     decoration: BoxDecoration(
                       color: Color(0xffF5F5F5),
                       borderRadius: BorderRadius.circular(7),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.25),
+                          blurRadius: 4,
+                          offset: Offset(0, 4),
+                        ),
+                      ],
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -122,25 +129,25 @@ class _DonViDetailState extends State<DonViDetail> {
                         customTitle('Địa chỉ'),
                         Row(
                           children: [
-                            customTitle('Số:'),
+                            customTitle('Số: '),
                             customText(widget.donVi.diaChi!.soNha ?? ''),
                           ],
                         ),
                         Row(
                           children: [
-                            customTitle('Phường:'),
+                            customTitle('Phường: '),
                             customText(widget.donVi.diaChi!.phuong ?? ''),
                           ],
                         ),
                         Row(
                           children: [
-                            customTitle('Quận:'),
+                            customTitle('Quận: '),
                             customText(widget.donVi.diaChi!.quan ?? ''),
                           ],
                         ),
                         Row(
                           children: [
-                            customTitle('Thành phố/Tỉnh:'),
+                            customTitle('Thành phố/Tỉnh: '),
                             customText(widget.donVi.diaChi!.tp ?? ''),
                           ],
                         ),
@@ -250,6 +257,13 @@ class _CustomTextField extends StatelessWidget {
       decoration: BoxDecoration(
         color: Color(0xffF5F5F5),
         borderRadius: BorderRadius.circular(7),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.25),
+            blurRadius: 4,
+            offset: Offset(0, 4),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -267,7 +281,7 @@ Widget customTitle(String title) {
     title,
     style: TextStyle(
       fontFamily: 'HelveticaNeue',
-      fontStyle: FontStyle.italic,
+      fontWeight: FontWeight.w400,
       fontSize: 12.8,
     ),
   );

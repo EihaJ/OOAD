@@ -36,7 +36,7 @@ class _ThanNhanChangeState extends State<ThanNhanChange> {
         children: [
           SizedBox(height: 10),
 
-// Tên Đơn vị
+// Tên Đơn Vị
 
           customTile(
             controller: tenTNController,
@@ -47,7 +47,7 @@ class _ThanNhanChangeState extends State<ThanNhanChange> {
           SizedBox(
             height: 12,
           ),
-// Tên Đơn vị
+// Tên Đơn Vị
           customTile(
             controller: moiQHController,
             containerWidth: 219,
@@ -65,7 +65,14 @@ class _ThanNhanChangeState extends State<ThanNhanChange> {
               ),
               decoration: BoxDecoration(
                 color: Color(0xffF5F5F5),
-                borderRadius: BorderRadius.circular(7),
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.25),
+                    blurRadius: 4,
+                    offset: Offset(0, 4),
+                  ),
+                ],
               ),
               height: 54,
               width: 219,
@@ -76,7 +83,7 @@ class _ThanNhanChangeState extends State<ThanNhanChange> {
                     'Ngày Sinh',
                     style: TextStyle(
                       fontFamily: 'HelveticaNeue',
-                      fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.w400,
                       fontSize: 12.8,
                     ),
                   ),
@@ -167,12 +174,19 @@ class _ThanNhanChangeState extends State<ThanNhanChange> {
   }) {
     return Container(
       padding: EdgeInsets.only(
+        top: 3,
         left: 7,
-        top: 5,
       ),
       decoration: BoxDecoration(
         color: Color(0xffF5F5F5),
         borderRadius: BorderRadius.circular(7),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.25),
+            blurRadius: 4,
+            offset: Offset(0, 4),
+          ),
+        ],
       ),
       height: height ?? 54,
       width: containerWidth,
@@ -197,7 +211,7 @@ class _ThanNhanChangeState extends State<ThanNhanChange> {
       title,
       style: TextStyle(
         fontFamily: 'HelveticaNeue',
-        fontStyle: FontStyle.italic,
+        fontWeight: FontWeight.w400,
         fontSize: 12.8,
       ),
     );

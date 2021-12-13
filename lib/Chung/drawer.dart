@@ -17,6 +17,7 @@ class CustomDrawer extends StatelessWidget {
           ),
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               height: 135,
@@ -41,49 +42,148 @@ class CustomDrawer extends StatelessWidget {
                 Navigator.popUntil(context, ModalRoute.withName('/'));
                 Navigator.pushNamed(context, '/DonVi');
               },
-              textButton: 'Quản lí Đơn vị',
+              textButton: 'Quản lý Đơn Vị',
             ),
-            ButtonDrawer(
-              onPressed: () {
-                Navigator.popUntil(context, ModalRoute.withName('/'));
-                Navigator.pushNamed(context, '/ChucVu');
-              },
-              textButton: 'Quản lí Chức vụ',
+            Row(
+              children: [
+                SizedBox(
+                  width: 10,
+                ),
+                Container(
+                  height: 1.5,
+                  width: 215,
+                  color: Colors.white.withOpacity(0.65),
+                ),
+              ],
             ),
+            SizedBox(height: 2.2),
+            Row(
+              children: [
+                SizedBox(
+                  width: 10,
+                ),
+                Container(
+                  height: 1.5,
+                  width: 215,
+                  color: Colors.white.withOpacity(0.65),
+                ),
+              ],
+            ),
+            SizedBox(height: 3),
             ButtonDrawer(
               onPressed: () {
                 Navigator.popUntil(context, ModalRoute.withName('/'));
                 Navigator.pushNamed(context, '/DoanThe');
               },
-              textButton: 'Quản lí Đoàn thể',
+              textButton: 'Quản lý Đoàn Thể',
             ),
+            SizedBox(height: 15),
+            Container(
+              height: 3,
+              width: double.infinity,
+              color: Colors.white,
+            ),
+            SizedBox(height: 15),
+            ButtonDrawer(
+              onPressed: () {
+                Navigator.popUntil(context, ModalRoute.withName('/'));
+                Navigator.pushNamed(context, '/ChucVu');
+              },
+              textButton: 'Quản lý Chức Vụ',
+            ),
+            Row(
+              children: [
+                SizedBox(
+                  width: 10,
+                ),
+                Container(
+                  height: 1.5,
+                  width: 215,
+                  color: Colors.white.withOpacity(0.65),
+                ),
+              ],
+            ),
+            SizedBox(height: 2.2),
+            Row(
+              children: [
+                SizedBox(
+                  width: 10,
+                ),
+                Container(
+                  height: 1.5,
+                  width: 215,
+                  color: Colors.white.withOpacity(0.65),
+                ),
+              ],
+            ),
+            SizedBox(height: 3),
             ButtonDrawer(
               onPressed: () {
                 Navigator.popUntil(context, ModalRoute.withName('/'));
                 Navigator.pushNamed(context, '/TrinhDo');
               },
-              textButton: 'Quản lí Trình Độ',
+              textButton: 'Quản lý Trình Độ',
             ),
-            ButtonDrawer(
-              onPressed: () {
-                Navigator.popUntil(context, ModalRoute.withName('/'));
-                Navigator.pushNamed(context, '/ThanNhan');
-              },
-              textButton: 'Quản lí Thân Nhân',
+            SizedBox(height: 15),
+            Container(
+              height: 3,
+              width: double.infinity,
+              color: Colors.white,
             ),
+            SizedBox(height: 15),
             ButtonDrawer(
               onPressed: () {
                 Navigator.popUntil(context, ModalRoute.withName('/'));
                 Navigator.pushNamed(context, '/NhanVien');
               },
-              textButton: 'Quản lí Nhân viên',
+              textButton: 'Quản lý Nhân Viên',
             ),
+            Row(
+              children: [
+                SizedBox(
+                  width: 10,
+                ),
+                Container(
+                  height: 1.5,
+                  width: 215,
+                  color: Colors.white.withOpacity(0.65),
+                ),
+              ],
+            ),
+            SizedBox(height: 2.2),
+            Row(
+              children: [
+                SizedBox(
+                  width: 10,
+                ),
+                Container(
+                  height: 1.5,
+                  width: 215,
+                  color: Colors.white.withOpacity(0.65),
+                ),
+              ],
+            ),
+            SizedBox(height: 3),
             ButtonDrawer(
               onPressed: () {
                 Navigator.popUntil(context, ModalRoute.withName('/'));
                 Navigator.pushNamed(context, '/Luong');
               },
-              textButton: 'Quản lí Lương',
+              textButton: 'Quản lý Lương',
+            ),
+            SizedBox(height: 15),
+            Container(
+              height: 3,
+              width: double.infinity,
+              color: Colors.white,
+            ),
+            SizedBox(height: 15),
+            ButtonDrawer(
+              onPressed: () {
+                Navigator.popUntil(context, ModalRoute.withName('/'));
+                Navigator.pushNamed(context, '/ThanNhan');
+              },
+              textButton: 'Quản lý Thân Nhân',
             ),
           ],
         ),

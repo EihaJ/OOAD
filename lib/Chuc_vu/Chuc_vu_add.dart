@@ -32,7 +32,7 @@ class _ChucVuAddState extends State<ChucVuAdd> {
           SizedBox(
             height: 12,
           ),
-// Tên Đơn vị
+// Tên Đơn Vị
 
           customTile(
             controller: tenCVController,
@@ -43,7 +43,7 @@ class _ChucVuAddState extends State<ChucVuAdd> {
 //           SizedBox(
 //             height: 12,
 //           ),
-// // Tên Đơn vị
+// // Tên Đơn Vị
 //           customTile(
 //             controller: namController,
 //             containerWidth: 219,
@@ -121,12 +121,19 @@ class _ChucVuAddState extends State<ChucVuAdd> {
   }) {
     return Container(
       padding: EdgeInsets.only(
+        top: 3,
         left: 7,
-        top: 5,
       ),
       decoration: BoxDecoration(
         color: Color(0xffF5F5F5),
         borderRadius: BorderRadius.circular(7),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.25),
+            blurRadius: 4,
+            offset: Offset(0, 4),
+          ),
+        ],
       ),
       height: height ?? 54,
       width: containerWidth,
@@ -151,7 +158,7 @@ class _ChucVuAddState extends State<ChucVuAdd> {
       title,
       style: TextStyle(
         fontFamily: 'HelveticaNeue',
-        fontStyle: FontStyle.italic,
+        fontWeight: FontWeight.w400,
         fontSize: 12.8,
       ),
     );
