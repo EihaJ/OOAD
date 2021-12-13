@@ -74,7 +74,14 @@ class _CustomTextField extends StatelessWidget {
       width: width,
       decoration: BoxDecoration(
         color: Color(0xffF5F5F5),
-        borderRadius: BorderRadius.circular(7),
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.25),
+            blurRadius: 4,
+            offset: Offset(0, 4),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

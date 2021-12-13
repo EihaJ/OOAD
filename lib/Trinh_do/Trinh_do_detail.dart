@@ -1082,7 +1082,16 @@ class _TrinhDoDetailState extends State<TrinhDoDetail> {
                                                       color: Color(0xffF5F5F5),
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              7),
+                                                              10),
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          color: Colors.black
+                                                              .withOpacity(
+                                                                  0.25),
+                                                          blurRadius: 4,
+                                                          offset: Offset(0, 4),
+                                                        ),
+                                                      ],
                                                     ),
                                                     height: 54,
                                                     width: 219,
@@ -1145,7 +1154,16 @@ class _TrinhDoDetailState extends State<TrinhDoDetail> {
                                                       color: Color(0xffF5F5F5),
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              7),
+                                                              10),
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          color: Colors.black
+                                                              .withOpacity(
+                                                                  0.25),
+                                                          blurRadius: 4,
+                                                          offset: Offset(0, 4),
+                                                        ),
+                                                      ],
                                                     ),
                                                     height: 54,
                                                     width: 219,
