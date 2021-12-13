@@ -39,7 +39,7 @@ class _KhenThuongDetailState extends State<KhenThuongDetail> {
           SizedBox(height: 12),
           _CustomTextField(
             width: 219,
-            title: 'Ngày: ',
+            title: 'Ngày nhận: ',
             text: DateFormat('dd/MM/yyyy')
                 .format(widget.khenThuong.ngayKhenThuong!),
           ),

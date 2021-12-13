@@ -44,14 +44,13 @@ class TrangChu extends StatelessWidget {
                       fontWeight: FontWeight.w900,
                     ),
                   ),
-                  SizedBox(height: 0),
                   Text(
                     'Duong Ha,',
                     style: TextStyle(
                       fontSize: 48.8,
                       color: Color(0xffFFFFFF),
-                      fontFamily: 'HelveticaNeue',
-                      fontWeight: FontWeight.w400,
+                      fontFamily: 'Nunito',
+                      fontWeight: FontWeight.w900,
                     ),
                   ),
                 ],
